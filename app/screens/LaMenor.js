@@ -8,12 +8,13 @@ export default class LaMenor extends React.Component {
     constructor( props ) { 
         super(props);        
             this.state = {
-            isLoading : true,
-            _sorteo: "",
-            _fecha_sorteo: "",
-            _vencimiento_sorteo: "",
-            _premios_menor: [],
-         }
+              __error: "",
+              isLoading : true,
+              _sorteo: "",
+              _fecha_sorteo: "",
+              _vencimiento_sorteo: "",
+              _premios_menor: [],
+             }
   }
 
 
@@ -36,12 +37,11 @@ export default class LaMenor extends React.Component {
     })
 
     .catch((error) => {
-      console.log('Entra Here')
-      console.log(error);
-      if (error === "Network request failed") {
-        console.log('NO HAY INTERNET');
-        
-      }
+      console.log(error.message); 
+      this.setState({
+        isLoading: true,
+        __error: error.message,              
+      })      
 
     });
 
@@ -49,12 +49,24 @@ export default class LaMenor extends React.Component {
 
   render(){
 
-    if (this.state.isLoading) {
+    if (this.state.isLoading && this.state.__error === "Network request failed") {
+
+      let _error = 
+        ( <View   style={styles.item}>          
+           <Text> Solicitud de red fallida </Text>             
+          </View>
+        );
 
       return (
         <ScrollView style={styles.myScroll}>
+          <Image 
+              source={require("../../assets/img/logo-chica.png")}              
+              resizeMode="contain"
+              style={styles.myImage}
+          />
           <View style={styles.container}>  
-             <ActivityIndicator />      
+             <ActivityIndicator />
+             {_error}      
              <StatusBar style="auto" />
              </View>
         </ScrollView>

@@ -7,19 +7,20 @@ export default class LaMayor extends React.Component {
 
     constructor( props ) { 
         super(props);        
-            this.state = {
-            isLoading : true,
-            _sorteo: "",
-            _fecha_sorteo: "",
-            _vencimiento_sorteo: "",
-            _premios_mayor: [],
-         }
+            this.state = {              
+              __error: "",
+              isLoading : true,
+              _sorteo: "",
+              _fecha_sorteo: "",
+              _vencimiento_sorteo: "",
+              _premios_mayor: [],
+            }
   }
 
 
   componentDidMount () {
 
-    console.log('DID LA MAYOR');
+    console.log('DID LA MAYOR DID-MOUNT');
 
     return fetch('http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/1/0')
     .then(( response ) => response.json() )
@@ -30,26 +31,76 @@ export default class LaMayor extends React.Component {
         _sorteo: reponseJson.sorteo,
         _fecha_sorteo: reponseJson.fecha_sorteo,
         _vencimiento_sorteo: reponseJson.vencimiento_sorteo,
-        _premios_mayor: reponseJson.premios,
+        _premios_mayor: reponseJson.premios,        
       })
 
     })
 
-    .catch((error) => {
+    .catch((error) => {      
+      console.log(error.message); 
+      this.setState({
+        isLoading: true,
+        __error: error.message,              
+      })
       
-      console.log(error); 
     });
 
   }
 
-  render(){
+  // componentDidUpdate(prevProps) {
+  //   // Uso tipico (no olvides de comparar las props):
+  //   console.log('DID LA MAYOR DID-UPDATE');
 
-    if (this.state.isLoading) {
+  //   if (this.props.isLoading !== prevProps.isLoading) {      
+
+  //   return fetch('http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/1/0')
+  //   .then(( response ) => response.json() )
+  //   .then((reponseJson) => {
+
+  //     this.setState({
+  //       isLoading: false,
+  //       _sorteo: reponseJson.sorteo,
+  //       _fecha_sorteo: reponseJson.fecha_sorteo,
+  //       _vencimiento_sorteo: reponseJson.vencimiento_sorteo,
+  //       _premios_mayor: reponseJson.premios,
+  //     })
+
+  //   })
+
+  //   .catch((error) => {
+      
+  //     console.log(error.message); 
+  //     this.setState.__error = error.message;
+      
+      
+  //   });
+      
+  //   }
+  // }
+
+  render(){    
+
+    if (this.state.isLoading && this.state.__error === "Network request failed") {
+
+        let _error = 
+        ( <View   style={styles.item}>          
+           <Text> Solicitud de red fallida </Text>             
+          </View>
+        );
+       
+      
 
       return (
         <ScrollView style={styles.myScroll}>
-          <View style={styles.container}>  
+        <Image 
+              source={require("../../assets/img/logo-grande.png")}              
+              resizeMode="contain"
+              style={styles.myImage}              
+          />
+          <View style={styles.container}>
+              
              <ActivityIndicator />      
+             {_error}
              <StatusBar style="auto" />
              </View>
         </ScrollView>
