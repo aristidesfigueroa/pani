@@ -19,6 +19,8 @@ export default class LaMayor extends React.Component {
 
   componentDidMount () {
 
+    console.log('DID LA MAYOR');
+
     return fetch('http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/1/0')
     .then(( response ) => response.json() )
     .then((reponseJson) => {
@@ -84,7 +86,7 @@ export default class LaMayor extends React.Component {
         <Image 
               source={require("../../assets/img/logo-grande.png")}              
               resizeMode="contain"
-              style={styles.myImage}
+              style={styles.myImage}              
           />
           <View style={styles.container}>
             {encabezado}
@@ -113,17 +115,17 @@ export default class LaMayor extends React.Component {
  */ 
 const styles = StyleSheet.create({
     myScroll: {
-        marginLeft: 5,
-        marginRight: 5,
+        marginLeft: 0,
+        marginRight: 0,
     }, 
     myImage: {
-        height: 200,    
+        height: 100,    
         width:"100%",
-        marginBottom:60,                      
+        marginBottom:20,                              
     }, 
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: "#00a680",
+        borderBottomColor: "#ffbb33",
         marginBottom:40,
         // fontSize: 19,
         //     marginBottom: 10,

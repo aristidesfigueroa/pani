@@ -19,6 +19,8 @@ export default class LaMenor extends React.Component {
 
   componentDidMount () {
 
+    console.log('DID LA MENOR');
+
     return fetch('http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/2/0')
     .then(( response ) => response.json() )
     .then((reponseJson) => {
@@ -60,12 +62,7 @@ export default class LaMenor extends React.Component {
 
       );
       
-    }else{
-
-
-      // let sorteo = this.state._sorteo;
-      // let fechaSorteo = this.state._fecha_sorteo;
-      // let fechaVencimiento = this.state._vencimiento_sorteo;
+    }else{      
 
       let encabezado = 
        (<View   style={styles.item}>
@@ -92,10 +89,7 @@ export default class LaMenor extends React.Component {
               style={styles.myImage}
           />
           <View style={styles.container}>
-            {encabezado}
-            {/* <Text> Sorteo  #: {sorteo}  style={styles.textA}</Text>
-            <Text> Juagado  : {fechaSorteo} style={styles.textA}</Text>
-            <Text> Caducidad de Premios  : {fechaVencimiento} style={styles.textA}</Text> */}
+            {encabezado}            
             {premiosMenor}        
             <StatusBar style="auto" />
           </View>
@@ -118,17 +112,17 @@ export default class LaMenor extends React.Component {
  */ 
 const styles = StyleSheet.create({
     myScroll: {
-        marginLeft: 5,
-        marginRight: 5,
+        marginLeft: 0,
+        marginRight: 0,
     }, 
     myImage: {
-        height: 200,    
+        height: 100,    
         width:"100%",
-        marginBottom:60,                      
+        marginBottom:20,                      
     }, 
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },

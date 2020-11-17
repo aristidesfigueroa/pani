@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "V1.4 Consulta Menor"
+    "description": "V1.5 Consulta Menor, Mayor en Navigation"
   }
 }

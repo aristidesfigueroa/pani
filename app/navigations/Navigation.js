@@ -57,7 +57,8 @@ function screenOptions(route, color) {
             iconName = "arrow-down";           
             break;
         case "lamayor":
-            iconName = "arrow-up";            
+            iconName = "arrow-up"; 
+            // color="#ffbb33";           
             break;
         case "consultapremios":
             // iconName = "star-outline"; 
