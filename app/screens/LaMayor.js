@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from "react";
 import { StyleSheet  ,View, Text, Image, ScrollView, ActivityIndicator} from "react-native";
+import { Icon } from 'react-native-elements';
+
 
 export default class LaMayor extends React.Component {
 
@@ -63,22 +65,55 @@ export default class LaMayor extends React.Component {
 
         let _error = 
         ( <View>          
-           <Text style={styles.textA} > Solicitud de red fallida </Text>             
+           <Text style={styles.textA} > Solicitud de red fallida </Text>
+           <Text></Text>             
           </View>
         );   
 
       return (
-        <View >
+        // <ScrollView centerContent={true} style={styles.myViewBody}>
+        <ScrollView  style={styles.myViewBody}>
           <Image 
-              source={require("../../assets/img/logo-grande.png")}              
+              source={require("../../assets/img/logo-grande.png")}
               resizeMode="contain"
-              style={styles.myImage}              
+              style={styles.myImageErorr}
           />
-          {/* <ActivityIndicator />       */}
-             {_error}
-          <StatusBar style="auto" />
+          {_error}
+          
+          <View style={styles.myBtnView}>
+              {/* <Button
+                title="Recargar"
+                icon=
+                buttonStyle={styles.myBtn}
+                containerStyle={styles.myContainer}
+                // onPress={() => myNavigation.navigate("login")}
+                onPress={() => console.log('Recargar')}
+              />               */}
+              <Icon
+                raised                
+                name='reload'
+                // size= "30"
+                type="material-community"
+                color='#ffbb33'                
+                onPress={() => this.consultaLaGrande()}
+               />
 
-        </View>       
+
+          </View>
+       </ScrollView>
+
+
+        // <View >
+        //   <Image 
+        //       source={require("../../assets/img/logo-grande.png")}              
+        //       resizeMode="contain"
+        //       style={styles.myImage}              
+        //   />
+        //   {/* <ActivityIndicator />       */}
+        //      {_error}
+        //   <StatusBar style="auto" />
+
+        // </View>       
 
       );
       
@@ -148,14 +183,7 @@ const styles = StyleSheet.create({
         // backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    textA: {
-        fontWeight: "bold",    
-        fontSize: 19,
-        marginBottom: 10,
-        textAlign: "center", 
-        color: "#ffbb33",    
-    },
+    },    
     item: {
         flex: 5,
         alignSelf: "stretch",
@@ -170,6 +198,31 @@ const styles = StyleSheet.create({
         //     textAlign: "center", 
         
     },
+
+    // Styles for SOLITUD DE RED FALLIDA
+    myViewBody: {
+      marginLeft: 5,
+      marginRight: 5,
+    },
+    myImageErorr: {
+      height: 100,
+      width:"100%",
+      marginBottom:20,                   
+    },    
+    textA: {
+      fontWeight: "bold",    
+      fontSize: 19,
+      marginBottom: 10,
+      textAlign: "center", 
+      color: "#ffbb33",    
+    },
+    myBtnView: {
+      flex: 1,
+      alignItems: "center",
+    },
+    myBtn: {
+      backgroundColor: "#ffbb33",
+  },
     
 
 });
