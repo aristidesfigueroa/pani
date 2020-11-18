@@ -18,9 +18,8 @@ export default class LaMenor extends React.Component {
   }
 
 
-  componentDidMount () {
-
-    console.log('DID LA MENOR');
+  consultaLaChica () {
+    console.log('ConsultaLaChica();');
 
     return fetch('http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/2/0')
     .then(( response ) => response.json() )
@@ -47,31 +46,36 @@ export default class LaMenor extends React.Component {
 
   }
 
+
+  componentDidMount () {
+
+    console.log('LA CHICA DID MOUNT');
+    this.consultaLaChica();    
+
+  }
+
   render(){
 
     if (this.state.isLoading && this.state.__error === "Network request failed") {
 
       let _error = 
-        ( <View   style={styles.item}>          
-           <Text> Solicitud de red fallida </Text>             
+        ( <View>          
+           <Text style={styles.textA}> Solicitud de red fallida </Text>             
           </View>
         );
 
       return (
-        <ScrollView style={styles.myScroll}>
+        <View >
           <Image 
-              source={require("../../assets/img/logo-chica.png")}              
+              source={require("../../assets/img/logo-chica.png")}             
               resizeMode="contain"
-              style={styles.myImage}
+              style={styles.myImage}              
           />
-          <View style={styles.container}>  
-             <ActivityIndicator />
-             {_error}      
-             <StatusBar style="auto" />
-             </View>
-        </ScrollView>
-        
+          {/* <ActivityIndicator />       */}
+             {_error}
+          <StatusBar style="auto" />
 
+        </View> 
       );
       
     }else{      
@@ -142,7 +146,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",    
         fontSize: 19,
         marginBottom: 10,
-        textAlign: "center",     
+        textAlign: "center",  
+        color: "#2AC218",   
     },
     item: {
         flex: 5,

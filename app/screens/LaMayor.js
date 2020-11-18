@@ -17,10 +17,9 @@ export default class LaMayor extends React.Component {
             }
   }
 
+  consultaLaGrande () {
 
-  componentDidMount () {
-
-    console.log('DID LA MAYOR DID-MOUNT');
+    console.log('ConsultaLaGrande();');
 
     return fetch('http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/1/0')
     .then(( response ) => response.json() )
@@ -47,73 +46,43 @@ export default class LaMayor extends React.Component {
 
   }
 
-  // componentDidUpdate(prevProps) {
-  //   // Uso tipico (no olvides de comparar las props):
-  //   console.log('DID LA MAYOR DID-UPDATE');
 
-  //   if (this.props.isLoading !== prevProps.isLoading) {      
+  componentDidMount () {
 
-  //   return fetch('http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/1/0')
-  //   .then(( response ) => response.json() )
-  //   .then((reponseJson) => {
+    console.log('DID LA MAYOR DID-MOUNT');
 
-  //     this.setState({
-  //       isLoading: false,
-  //       _sorteo: reponseJson.sorteo,
-  //       _fecha_sorteo: reponseJson.fecha_sorteo,
-  //       _vencimiento_sorteo: reponseJson.vencimiento_sorteo,
-  //       _premios_mayor: reponseJson.premios,
-  //     })
+    this.consultaLaGrande();    
 
-  //   })
+  }
 
-  //   .catch((error) => {
-      
-  //     console.log(error.message); 
-  //     this.setState.__error = error.message;
-      
-      
-  //   });
-      
-  //   }
-  // }
+  
 
   render(){    
 
     if (this.state.isLoading && this.state.__error === "Network request failed") {
 
         let _error = 
-        ( <View   style={styles.item}>          
-           <Text> Solicitud de red fallida </Text>             
+        ( <View>          
+           <Text style={styles.textA} > Solicitud de red fallida </Text>             
           </View>
-        );
-       
-      
+        );   
 
       return (
-        <ScrollView style={styles.myScroll}>
-        <Image 
+        <View >
+          <Image 
               source={require("../../assets/img/logo-grande.png")}              
               resizeMode="contain"
               style={styles.myImage}              
           />
-          <View style={styles.container}>
-              
-             <ActivityIndicator />      
+          {/* <ActivityIndicator />       */}
              {_error}
-             <StatusBar style="auto" />
-             </View>
-        </ScrollView>
-        
+          <StatusBar style="auto" />
+
+        </View>       
 
       );
       
-    }else{
-
-
-      // let sorteo = this.state._sorteo;
-      // let fechaSorteo = this.state._fecha_sorteo;
-      // let fechaVencimiento = this.state._vencimiento_sorteo;
+    }else{      
 
       let encabezado = 
        (<View   style={styles.item}>
@@ -184,7 +153,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",    
         fontSize: 19,
         marginBottom: 10,
-        textAlign: "center",     
+        textAlign: "center", 
+        color: "#ffbb33",    
     },
     item: {
         flex: 5,
@@ -199,6 +169,8 @@ const styles = StyleSheet.create({
         //     marginBottom: 10,
         //     textAlign: "center", 
         
-    }
+    },
+    
+
 });
 
