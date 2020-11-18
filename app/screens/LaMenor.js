@@ -115,9 +115,9 @@ export default class LaMenor extends React.Component {
 
       let encabezado = 
        (<View   style={styles.item}>
-           <Text> Sorteo: {this.state._sorteo} </Text>  
-           <Text> Juagado: {this.state._fecha_sorteo} </Text>
-           <Text> Caduciad de Premios: {this.state._vencimiento_sorteo} </Text>             
+           <Text style={styles.textE}> Sorteo: {this.state._sorteo} </Text>  
+           <Text style={styles.textE}> Jugado: {this.state._fecha_sorteo} </Text>
+           <Text style={styles.textE}> Caduciad de Premios: {this.state._vencimiento_sorteo} </Text>             
         </View>
        );
 
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     myImage: {
         height: 100,    
         width:"100%",
-        marginBottom:20,                      
+        marginBottom:10,                      
     }, 
     container: {
         flex: 1,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: "#00a680",
+        borderBottomColor: "#2AC218",
         marginBottom:40,
         // fontSize: 19,
         //     marginBottom: 10,
@@ -203,6 +203,13 @@ const styles = StyleSheet.create({
     textA: {
       fontWeight: "bold",    
       fontSize: 19,
+      marginBottom: 10,
+      textAlign: "center", 
+      color: "#2AC218",    
+    },
+    textE: {
+      fontWeight: "bold",    
+      fontSize: 15,
       marginBottom: 10,
       textAlign: "center", 
       color: "#2AC218",    
