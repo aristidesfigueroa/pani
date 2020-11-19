@@ -15,6 +15,7 @@ export default class LaMenor extends React.Component {
               _fecha_sorteo: "",
               _vencimiento_sorteo: "",
               _premios_menor: [],
+              _numeroGanador: ([]),
              }
   }
 
@@ -34,6 +35,8 @@ export default class LaMenor extends React.Component {
         _premios_menor: reponseJson.premios_menor,
       })
 
+      
+
     })
 
     .catch((error) => {
@@ -44,6 +47,30 @@ export default class LaMenor extends React.Component {
       })      
 
     });
+
+  }
+
+  verPremiosMenor ( ) {
+    console.log('Entro a verPremiosMenor');
+    let verArray = this.state._premios_menor.map((val, key) => {
+      console.log(val.numero);
+      if (val.clasificacion === "NUMERO" && val.tipo === "GANADOR") {
+        
+
+        this.setState._numeroGanador = 
+         (
+         <View   style={styles.item}>
+           <Text style={styles.textG}> {val.numero} </Text>
+           <Text style={styles.textE}> Derecho </Text>                         
+          </View>
+        );
+
+               
+      }
+      
+    });
+
+    return this.setState._numeroGanador;
 
   }
 
@@ -110,9 +137,12 @@ export default class LaMenor extends React.Component {
            <Text style={styles.textE}> Caduciad Premios: {this.state._vencimiento_sorteo} </Text>             
         </View>
        );
+      
+       let ganador = this.verPremiosMenor();
+      
 
             
-
+      
       let premiosMenor = this.state._premios_menor.map((val, key) => {
         return <View key={key}  style={styles.item}>
                 <Text>{val.numero} {val.clasificacion}</Text>               
@@ -128,7 +158,8 @@ export default class LaMenor extends React.Component {
               style={styles.myImage}
           />
           <View style={styles.container}>
-            {encabezado}            
+            {encabezado} 
+            {ganador}           
             {premiosMenor}        
             <StatusBar style="auto" />
           </View>
@@ -210,6 +241,13 @@ const styles = StyleSheet.create({
     },
     myBtn: {
       backgroundColor: "#ffbb33",
+  },
+  textG: {
+    fontWeight: "bold",    
+    fontSize: 30,
+    marginBottom: 10,
+    textAlign: "center", 
+    color: "#2AC218",    
   },
     
 });
