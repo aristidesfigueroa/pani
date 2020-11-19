@@ -102,19 +102,6 @@ export default class LaMayor extends React.Component {
           </View>
        </ScrollView>
 
-
-        // <View >
-        //   <Image 
-        //       source={require("../../assets/img/logo-grande.png")}              
-        //       resizeMode="contain"
-        //       style={styles.myImage}              
-        //   />
-        //   {/* <ActivityIndicator />       */}
-        //      {_error}
-        //   <StatusBar style="auto" />
-
-        // </View>       
-
       );
       
     }else{      
@@ -123,7 +110,7 @@ export default class LaMayor extends React.Component {
        (<View   style={styles.item}>
            <Text style={styles.textE}> Sorteo: {this.state._sorteo} </Text>  
            <Text style={styles.textE}> Jugado: {this.state._fecha_sorteo} </Text>
-           <Text style={styles.textE}> Caduciad de Premios: {this.state._vencimiento_sorteo} </Text>             
+           <Text style={styles.textE}> Caduciad Premios: {this.state._vencimiento_sorteo} </Text>             
         </View>
        );
 

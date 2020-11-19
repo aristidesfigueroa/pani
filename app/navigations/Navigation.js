@@ -75,7 +75,7 @@ function screenOptions(route, color) {
             break;
         case "consultapremios":
             // iconName = "star-outline"; 
-            iconName = "database-search";           
+            iconName = "gift-outline";           
             break;
         case "compra":
         // iconName = "star-outline"; 
