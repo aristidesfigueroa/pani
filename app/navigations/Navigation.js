@@ -6,9 +6,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from 'react-native-elements'; 
 
+import HomeStack from "./HomeStack";
 import LaMenorStack from "./LaMenorStack"
 import LaMayorStack from "./LaMayorStack";
 import ConsultaPremiosStack from "./ConsultaPremiosStack";
+import CompraStack from "./CompraStack";
 
 
 const Tab = createBottomTabNavigator();
@@ -18,7 +20,7 @@ export default function Navigation() {
     return(
         <NavigationContainer>
             <Tab.Navigator
-             initialRouteName="lamenor"  // Acá decido donde iniciar en el Navigator
+             initialRouteName="home"  // Acá decido donde iniciar en el Navigator
              tabBarOptions={{
                  inactiveTintColor: "#646464",
                  activeTintColor: "#00a680",
@@ -28,20 +30,30 @@ export default function Navigation() {
              })}
             >
                 <Tab.Screen 
+                name="home" 
+                component={HomeStack}
+                options={{title:"Pani"}}
+                />                
+                <Tab.Screen 
                 name="lamenor" 
                 component={LaMenorStack}
-                options={{title:"La Chica"}}
+                options={{title:"LaChica"}}
                  />
                 <Tab.Screen 
                 name="lamayor" 
                 component={LaMayorStack}
-                options={{title:"La Grande"}}
+                options={{title:"LaGrande"}}
                  />
                 <Tab.Screen 
                 name="consultapremios" 
                 component={ConsultaPremiosStack} 
-                options={{title:"Consulta Premios"}}
-                />                
+                options={{title:"Premios"}}
+                /> 
+                <Tab.Screen 
+                name="compra" 
+                component={CompraStack} 
+                options={{title:"Compras"}}
+                />                          
             </Tab.Navigator>
         </NavigationContainer>
         
@@ -52,18 +64,23 @@ function screenOptions(route, color) {
     let iconName;
     
     switch (route.name) {
-        case "lamenor":
-            // iconName = "compass-outline"; 
+        case "home":             
+            iconName = "home-outline";           
+            break;
+        case "lamenor":            
             iconName = "arrow-down";           
             break;
         case "lamayor":
-            iconName = "arrow-up"; 
-            // color="#ffbb33";           
+            iconName = "arrow-up";                      
             break;
         case "consultapremios":
             // iconName = "star-outline"; 
             iconName = "database-search";           
             break;
+        case "compra":
+        // iconName = "star-outline"; 
+        iconName = "credit-card-outline";           
+        break;
         default:
             break;
     }
