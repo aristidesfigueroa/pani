@@ -3,27 +3,30 @@ import React from "react";
 import { StyleSheet  ,View, Text, Image, ScrollView, ActivityIndicator} from "react-native";
 import { Icon } from 'react-native-elements';
 
-export default class LaMenor extends React.Component {
+export default class LaMenor extends React.Component {  
 
 
     constructor( props ) { 
         super(props);        
-            this.state = {
+            this.state = {              
               __error: "",
               isLoading : true,
-              _sorteo: "",
+              _sorteo: 0,
               _fecha_sorteo: "",
               _vencimiento_sorteo: "",
               _premios_menor: [],
-              _numeroGanador: ([]),
+              // _numeroGanador: ([]),
              }
   }
 
+  
 
-  consultaLaChica () {
+
+  consultaLaChica (sorteo) {
     console.log('ConsultaLaChica();');
+    const url = "http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/2/";
 
-    return fetch('http://190.5.111.142:9999/PAGOS_CUSTOM_REST_SERVICES/_ws_getinfosorteos/2/0')
+    return fetch(url+sorteo)
     .then(( response ) => response.json() )
     .then((reponseJson) => {
 
@@ -50,35 +53,124 @@ export default class LaMenor extends React.Component {
 
   }
 
-  verPremiosMenor ( ) {
-    console.log('Entro a verPremiosMenor');
+  verPremiosDerechoReves () {
+    let _numeroDerecho = "";
+    let _numeroReves   = "";
+    let _textoReturn;
+    console.log('verPremiosMenor();');
     let verArray = this.state._premios_menor.map((val, key) => {
-      console.log(val.numero);
+      // console.log(val.numero);
       if (val.clasificacion === "NUMERO" && val.tipo === "GANADOR") {
-        
+        _numeroDerecho = val.numero;    
 
-        this.setState._numeroGanador = 
-         (
-         <View   style={styles.item}>
-           <Text style={styles.textG}> {val.numero} </Text>
-           <Text style={styles.textE}> Derecho </Text>                         
-          </View>
-        );
+      }
+      else{
+        if (val.clasificacion === "NUMERO" && val.tipo === "REVES") {
+          _numeroReves = val.numero;
 
-               
+        }else{
+          _numeroReves = _numeroDerecho;
+
+        }
+
       }
       
     });
 
-    return this.setState._numeroGanador;
+    _textoReturn = 
+    (
+      <View   style={styles.item}>
+        <Text style={styles.textG}>{_numeroDerecho} Derecho </Text>
+        <Text style={styles.textR}>{_numeroReves} Revés </Text>
+        {/* <Text style={styles.textE}> Derecho </Text>                          */}
+       </View>
+     );
+
+    console.log(_numeroDerecho);
+    console.log(_numeroReves);
+    
+
+    return _textoReturn;
 
   }
+
+  verSerieDerecho () {
+    let _serieDerecho = "";
+    let _serieReves  = [];
+    let _textoSerieDerecho;
+    console.log('verSeries();');
+    let verArray = this.state._premios_menor.map((val, key) => {
+      // console.log(val.numero);
+      if (val.clasificacion === "SERIE" && val.tipo === "GANADOR") {
+        _serieDerecho = val.numero + ' L.' + val.pago_premio;    
+
+      }
+      else{
+        if (val.clasificacion === "SERIE" && val.tipo === "REVES") {
+          _serieReves.push(val.numero + ' L.' + val.pago_premio);
+
+        }
+
+      }
+      
+    });
+
+    _textoSerieDerecho  = 
+    (
+      <View   >
+        <Text style={styles.textSd}>Derecho {_serieDerecho}</Text>           
+       </View>
+     );    
+
+    return _textoSerieDerecho;
+
+  }
+
+  verSerieReves () {
+    let _serieDerecho = "";
+    let _serieReves  = [];
+    let _textoSerieReves;
+    console.log('verSeries();');
+    let verArray = this.state._premios_menor.map((val, key) => {
+      // console.log(val.numero);
+      if (val.clasificacion === "SERIE" && val.tipo === "GANADOR") {
+        _serieDerecho = val.numero + ' L.' + val.pago_premio;    
+
+      }
+      else{
+        if (val.clasificacion === "SERIE" && val.tipo === "REVES") {
+          _serieReves.push(val.numero + ' L.' + val.pago_premio);
+
+        }
+
+      }
+      
+    });
+
+    _textoSerieReves  = _serieReves.map((val, key) => {
+      return <View key={key} >
+              <Text style={styles.textSr}> Revés {val}</Text>               
+              </View>
+
+    });
+
+    console.log(_serieReves); 
+    
+    
+
+    return _textoSerieReves;
+
+  }
+
+
+
 
 
   componentDidMount () {
 
     console.log('LA CHICA DID MOUNT');
-    this.consultaLaChica();    
+    this.setState._sorteo = 3293;
+    this.consultaLaChica(this.setState._sorteo);    
 
   }
 
@@ -130,15 +222,26 @@ export default class LaMenor extends React.Component {
       
     }else{      
 
-      let encabezado = 
-       (<View   style={styles.item}>
-           <Text style={styles.textE}> Sorteo: {this.state._sorteo} </Text>  
-           <Text style={styles.textE}> Jugado: {this.state._fecha_sorteo} </Text>
+      let encabezado =   
+      // style={styles.item}    
+       (<View  >
+           {/* <Text style={styles.textE}> Sorteo: {this.state._sorteo} </Text>   */}
+           <Text style={styles.textE}> Sorteo Jugado: {this.state._fecha_sorteo} </Text>
            <Text style={styles.textE}> Caduciad Premios: {this.state._vencimiento_sorteo} </Text>             
         </View>
        );
       
-       let ganador = this.verPremiosMenor();
+       let derechoReves = this.verPremiosDerechoReves();
+
+       let series =   
+      // style={styles.item}    
+       (<View  >           
+           <Text style={styles.textS}> SERIES </Text>                        
+        </View>
+       );
+
+       let serieDerecho = this.verSerieDerecho();
+       let serieReves   = this.verSerieReves();
       
 
             
@@ -159,8 +262,10 @@ export default class LaMenor extends React.Component {
           />
           <View style={styles.container}>
             {encabezado} 
-            {ganador}           
-            {premiosMenor}        
+            {derechoReves} 
+            {series}
+            {serieDerecho}          
+            {serieReves}        
             <StatusBar style="auto" />
           </View>
         </ScrollView>
@@ -245,6 +350,34 @@ const styles = StyleSheet.create({
   textG: {
     fontWeight: "bold",    
     fontSize: 30,
+    marginBottom: 10,
+    textAlign: "center", 
+    color: "#2AC218",    
+  },
+  textR: {
+    fontWeight: "bold",    
+    fontSize: 20,
+    marginBottom: 10,
+    textAlign: "center", 
+    color: "#2AC218",    
+  },
+  textS: {
+    fontWeight: "bold",    
+    fontSize: 25,
+    marginBottom: 10,
+    textAlign: "center", 
+    color: "#2AC218",    
+  },
+  textSd: {
+    fontWeight: "bold",    
+    fontSize: 20,
+    marginBottom: 10,
+    textAlign: "center", 
+    color: "#2AC218",    
+  },
+  textSr: {
+    fontWeight: "bold",    
+    fontSize: 15,
     marginBottom: 10,
     textAlign: "center", 
     color: "#2AC218",    

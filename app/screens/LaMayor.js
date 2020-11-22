@@ -107,9 +107,10 @@ export default class LaMayor extends React.Component {
     }else{      
 
       let encabezado = 
-       (<View   style={styles.item}>
-           <Text style={styles.textE}> Sorteo: {this.state._sorteo} </Text>  
-           <Text style={styles.textE}> Jugado: {this.state._fecha_sorteo} </Text>
+      // style={styles.item}
+       (<View   >
+           {/* <Text style={styles.textE}> Sorteo: {this.state._sorteo} </Text>   */}
+           <Text style={styles.textE}> Sorteo Jugado: {this.state._fecha_sorteo} </Text>
            <Text style={styles.textE}> Caduciad Premios: {this.state._vencimiento_sorteo} </Text>             
         </View>
        );
