@@ -169,7 +169,7 @@ export default class LaMenor extends React.Component {
   componentDidMount () {
 
     console.log('LA CHICA DID MOUNT');
-    this.setState._sorteo = 3293;
+    this.setState._sorteo = 0;
     this.consultaLaChica(this.setState._sorteo);    
 
   }
@@ -209,7 +209,7 @@ export default class LaMenor extends React.Component {
                 // size= "30"
                 type="material-community"
                 color='#2AC218'                
-                onPress={() => this.consultaLaChica()}
+                onPress={() => this.consultaLaChica(this.setState._sorteo)}
                />
 
 
